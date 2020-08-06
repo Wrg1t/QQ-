@@ -11,7 +11,7 @@ def server():
     data = request.get_data().decode('utf-8')
     data = loads(data)
     print(data)
-    message = data['message'] #由于不同版本，返回的数据类型不想类似，根据实际情况自行更改
+    message = data['message'] #由于不同版本，返回的数据类型不相类似，根据实际情况自行更改
     if data['type'] == 'GroupMessage' and '阿巴' in message:
         group = data['group_id']
         abaGPost(group)
@@ -20,7 +20,7 @@ def server():
         user = data['user_id']
         abaPPost(user)
         print(user)
-    return ''
+    return ''#必须有返回值，否则报错
 
 def abaGPost(group):
     content = ''.join(i for i in aba())
