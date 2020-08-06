@@ -34,7 +34,7 @@ def server(ws):
                     }
                 }
                 print(msg)
-                ws.send(msg)
+                ws.send(dumps(msg))
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(('0.0.0.0', 5701), application=app, handler_class=WebSocketHandler)
