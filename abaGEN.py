@@ -13,4 +13,4 @@ def aba():
         return li
     
 if __name__ == "__main__":
-    print(aba(),end='')
+    print(''.join(i for i in aba()))
