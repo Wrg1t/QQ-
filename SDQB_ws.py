@@ -14,29 +14,35 @@ def server(ws):
         data = loads(ws.receive())
         if data:
             message = data.get('raw_message')
-            content = ''.join(i for i in aba())
             if data.get('type') == 'GroupMessage' and '阿巴' in message:
-                msg = {
-                    'action': 'send_group_msg',
-                    'params': {
-                        'group_id': data.get('group_id'),
-                        'message': content
-                    }
-                }
-                print(msg)
-                ws.send(dumps(msg))
+                sendGMsg(ws, data.get('group_id'), aba())
             elif data.get('type') == 'PrivateMessage' and '阿巴' in message:
-                msg = {
-                    "action": "send_private_msg",
-                    "params": {
-                        "user_id": data.get('user_id'),
-                        "message": content
-                    }
-                }
-                print(msg)
-                ws.send(dumps(msg))
+                sendPMsg(ws, data.get('user_id'), aba())
+    return data
+
+def sendGMsg(ws, group_id, msg):
+    msg = {
+        'action': 'send_group_msg',
+        'params': {
+            'group_id': group_id,
+            'message': msg
+        }
+    }
+    print(msg)
+    ws.send(dumps(msg))
+
+def sendPMsg(ws, user_id, msg):
+    msg = {
+        "action": "send_private_msg",
+        "params": {
+            "user_id": user_id,
+            "message": msg
+        }
+    }
+    print(msg)
+    ws.send(dumps(msg))
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(('0.0.0.0', 5701), application=app, handler_class=WebSocketHandler)
-    print('server started')
+    print('Server Started')
     server.serve_forever()

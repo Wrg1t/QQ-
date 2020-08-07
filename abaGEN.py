@@ -8,9 +8,9 @@ def aba():
         li.append(l[index])
     if not '阿巴' in li:
         li.append('阿巴')
-        return li
+        return ''.join(i for i in li)
     else:
-        return li
+        return ''.join(i for i in li)
     
 if __name__ == "__main__":
-    print(''.join(i for i in aba()))
+    print(aba())
